@@ -1,0 +1,388 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Observable Framework",
+  "scopeName": "text.html.markdown.observable",
+  "injectionSelector": "text.html.markdown",
+  "fileTypes": ["md"],
+  "patterns": [
+    {
+      "include": "#front-matter"
+    },
+    {
+      "include": "#observable-javascript-blocks"
+    },
+    {
+      "include": "#observable-sql-blocks"
+    },
+    {
+      "include": "#observable-python-blocks"
+    },
+    {
+      "include": "#observable-r-blocks"
+    },
+    {
+      "include": "#data-loader-syntax"
+    },
+    {
+      "include": "#observable-imports"
+    },
+    {
+      "include": "#observable-variables"
+    },
+    {
+      "include": "#observable-viewof"
+    },
+    {
+      "include": "#observable-mutable"
+    },
+    {
+      "include": "#file-attachment"
+    },
+    {
+      "include": "#interpolation"
+    },
+    {
+      "include": "text.html.markdown"
+    }
+  ],
+  "repository": {
+    "front-matter": {
+      "begin": "\\A---",
+      "end": "^---\\s*$",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.front-matter.observable"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.front-matter.observable"
+        }
+      },
+      "name": "meta.front-matter.observable",
+      "contentName": "source.yaml",
+      "patterns": [
+        {
+          "include": "source.yaml"
+        }
+      ]
+    },
+    "observable-javascript-blocks": {
+      "begin": "^(```+)\\s*(js|javascript|observable)\\s*$",
+      "end": "^\\1\\s*$",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.markdown.code-block.begin"
+        },
+        "2": {
+          "name": "fenced_code.block.language.observable"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.markdown.code-block.end"
+        }
+      },
+      "name": "markup.fenced_code.block.markdown.observable",
+      "contentName": "source.js.observable",
+      "patterns": [
+        {
+          "include": "#observable-syntax"
+        },
+        {
+          "include": "source.js"
+        }
+      ]
+    },
+    "observable-sql-blocks": {
+      "begin": "^(```+)\\s*(sql)\\s*$",
+      "end": "^\\1\\s*$",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.markdown.code-block.begin"
+        },
+        "2": {
+          "name": "fenced_code.block.language.sql"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.markdown.code-block.end"
+        }
+      },
+      "name": "markup.fenced_code.block.markdown.sql",
+      "contentName": "source.sql",
+      "patterns": [
+        {
+          "include": "source.sql"
+        }
+      ]
+    },
+    "observable-python-blocks": {
+      "begin": "^(```+)\\s*(py|python)\\s*$",
+      "end": "^\\1\\s*$",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.markdown.code-block.begin"
+        },
+        "2": {
+          "name": "fenced_code.block.language.python"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.markdown.code-block.end"
+        }
+      },
+      "name": "markup.fenced_code.block.markdown.python",
+      "contentName": "source.python",
+      "patterns": [
+        {
+          "include": "source.python"
+        }
+      ]
+    },
+    "observable-r-blocks": {
+      "begin": "^(```+)\\s*(r)\\s*$",
+      "end": "^\\1\\s*$",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.markdown.code-block.begin"
+        },
+        "2": {
+          "name": "fenced_code.block.language.r"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.markdown.code-block.end"
+        }
+      },
+      "name": "markup.fenced_code.block.markdown.r",
+      "contentName": "source.r",
+      "patterns": [
+        {
+          "include": "source.r"
+        }
+      ]
+    },
+    "data-loader-syntax": {
+      "patterns": [
+        {
+          "match": "^\\s*```+\\s*(\\w+)\\.(js|py|sql|r)\\s*$",
+          "captures": {
+            "1": {
+              "name": "entity.name.filename.observable"
+            },
+            "2": {
+              "name": "entity.name.tag.file-extension.observable"
+            }
+          },
+          "name": "meta.data-loader.observable"
+        }
+      ]
+    },
+    "observable-syntax": {
+      "patterns": [
+        {
+          "include": "#observable-imports"
+        },
+        {
+          "include": "#observable-variables"
+        },
+        {
+          "include": "#observable-viewof"
+        },
+        {
+          "include": "#observable-mutable"
+        },
+        {
+          "include": "#file-attachment"
+        },
+        {
+          "include": "#observable-cell-assignment"
+        }
+      ]
+    },
+    "observable-imports": {
+      "begin": "\\b(import)\\s*\\{",
+      "end": "\\}\\s*(from|with)\\s*",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.import.observable"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "keyword.control.import.observable"
+        }
+      },
+      "name": "meta.import.observable",
+      "patterns": [
+        {
+          "match": "\\b([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*(as\\s+([a-zA-Z_$][a-zA-Z0-9_$]*))?",
+          "captures": {
+            "1": {
+              "name": "variable.other.readwrite.import.observable"
+            },
+            "2": {
+              "name": "keyword.control.import.as.observable"
+            },
+            "3": {
+              "name": "variable.other.readwrite.alias.observable"
+            }
+          }
+        }
+      ]
+    },
+    "observable-variables": {
+      "patterns": [
+        {
+          "match": "^\\s*([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*(=)",
+          "captures": {
+            "1": {
+              "name": "variable.other.readwrite.observable"
+            },
+            "2": {
+              "name": "keyword.operator.assignment.observable"
+            }
+          }
+        }
+      ]
+    },
+    "observable-viewof": {
+      "begin": "\\b(viewof)\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*(=)",
+      "end": "$|(?=;)",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.viewof.observable"
+        },
+        "2": {
+          "name": "variable.other.readwrite.viewof.observable"
+        },
+        "3": {
+          "name": "keyword.operator.assignment.observable"
+        }
+      },
+      "name": "meta.viewof.observable",
+      "patterns": [
+        {
+          "include": "source.js"
+        }
+      ]
+    },
+    "observable-mutable": {
+      "begin": "\\b(mutable)\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*(=)",
+      "end": "$|(?=;)",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.mutable.observable"
+        },
+        "2": {
+          "name": "variable.other.readwrite.mutable.observable"
+        },
+        "3": {
+          "name": "keyword.operator.assignment.observable"
+        }
+      },
+      "name": "meta.mutable.observable",
+      "patterns": [
+        {
+          "include": "source.js"
+        }
+      ]
+    },
+    "observable-cell-assignment": {
+      "begin": "^\\s*([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*(=)\\s*\\{",
+      "end": "^\\}",
+      "beginCaptures": {
+        "1": {
+          "name": "variable.other.readwrite.cell.observable"
+        },
+        "2": {
+          "name": "keyword.operator.assignment.observable"
+        }
+      },
+      "name": "meta.cell.block.observable",
+      "patterns": [
+        {
+          "include": "source.js"
+        }
+      ]
+    },
+    "file-attachment": {
+      "begin": "\\b(FileAttachment)\\s*\\(",
+      "end": "\\)",
+      "beginCaptures": {
+        "1": {
+          "name": "support.function.file-attachment.observable"
+        }
+      },
+      "name": "meta.file-attachment.observable",
+      "patterns": [
+        {
+          "match": "(['\"])([^'\"]*?)\\1",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.string.observable"
+            },
+            "2": {
+              "name": "string.quoted.file-path.observable"
+            }
+          }
+        },
+        {
+          "include": "source.js"
+        }
+      ]
+    },
+    "interpolation": {
+      "patterns": [
+        {
+          "begin": "\\$\\{",
+          "end": "\\}",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.template-expression.begin.observable"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.template-expression.end.observable"
+            }
+          },
+          "name": "meta.embedded.line.js.observable",
+          "contentName": "source.js.embedded.observable",
+          "patterns": [
+            {
+              "include": "#observable-syntax"
+            },
+            {
+              "include": "source.js"
+            }
+          ]
+        },
+        {
+          "begin": "`",
+          "end": "`",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.template.begin.observable"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.template.end.observable"
+            }
+          },
+          "name": "string.template.observable",
+          "patterns": [
+            {
+              "include": "#interpolation"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
